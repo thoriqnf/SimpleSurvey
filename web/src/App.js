@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import "./App.css";
+var uuid = require("uuid");
+var firebase = require("firebase");
 
 class App extends Component {
   constructor(props) {
