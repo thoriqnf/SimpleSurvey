@@ -15,6 +15,8 @@ class App extends Component {
       },
       submitted: false
     };
+
+    this.handleQuestionChange = this.handleQuestionChange.bind(this);
   }
 
   handleNameSubmit(event) {
@@ -29,11 +31,128 @@ class App extends Component {
     );
     event.preventDefault();
   }
+
+  handleQuestionSubmit(event) {}
+
+  handleQuestionChange(event) {
+    var answers = this.state.answers;
+    if (event.target.name === "q1") {
+      answers.q1 = event.target.value;
+    } else if (event.target.name === "q2") {
+      answers.q2 = event.target.value;
+    } else if (event.target.name === "q3") {
+      answers.q3 = event.target.value;
+    }
+    this.setState({ answers: answers }, function() {
+      console.log(this.state);
+    });
+  }
+
   render() {
     var user;
     var questions;
     if (this.state.name && this.state.submitted === false) {
       user = <h2>Welcome {this.state.name}</h2>;
+
+      questions = (
+        <span>
+          <h3>Survey Questions</h3>
+          <form onSubmit={this.handleQuestionSubmit.bind(this)}>
+            {/* first question */}
+            <div>
+              <label>what is your favorite operating system?</label> <br />
+              <input
+                type="radio"
+                name="q1"
+                value="Windows"
+                onChange={this.handleQuestionChange}
+              />Windows <br />
+              <input
+                type="radio"
+                name="q1"
+                value="OSX"
+                onChange={this.handleQuestionChange}
+              />OSX <br />
+              <input
+                type="radio"
+                name="q1"
+                value="Linux"
+                onChange={this.handleQuestionChange}
+              />Linux <br />
+              <input
+                type="radio"
+                name="q1"
+                value="Solaris"
+                onChange={this.handleQuestionChange}
+              />Solaris <br />
+              <input
+                type="radio"
+                name="q1"
+                value="Oher"
+                onChange={this.handleQuestionChange}
+              />Other <br />
+            </div>
+
+            {/* second question */}
+            <div>
+              <label>what is your favorite brand smartphone?</label> <br />
+              <input
+                type="radio"
+                name="q2"
+                value="Samsung"
+                onChange={this.handleQuestionChange}
+              />Samsung <br />
+              <input
+                type="radio"
+                name="q2"
+                value="Sony"
+                onChange={this.handleQuestionChange}
+              />Sony <br />
+              <input
+                type="radio"
+                name="q2"
+                value="Apple"
+                onChange={this.handleQuestionChange}
+              />Apple <br />
+              <input
+                type="radio"
+                name="q2"
+                value="Xiaomi"
+                onChange={this.handleQuestionChange}
+              />Xiaomi <br />
+              <input
+                type="radio"
+                name="q2"
+                value="Oppo"
+                onChange={this.handleQuestionChange}
+              />Oppo <br />
+            </div>
+
+            {/* Third question */}
+            <div>
+              <label>what is your favorite CPU?</label> <br />
+              <input
+                type="radio"
+                name="q3"
+                value="AMD"
+                onChange={this.handleQuestionChange}
+              />AMD <br />
+              <input
+                type="radio"
+                name="q3"
+                value="Intel"
+                onChange={this.handleQuestionChange}
+              />Intel <br />
+              <input
+                type="radio"
+                name="q3"
+                value="Nvidia"
+                onChange={this.handleQuestionChange}
+              />Nvidia <br />
+            </div>
+          </form>
+        </span>
+      );
     } else if (!this.state.name && this.state.submitted === false) {
       user = (
         <span>
@@ -48,11 +167,12 @@ class App extends Component {
     }
 
     return (
-      <div className="App text-center">
-        <div className="App-header">
+      <div className="App">
+        <div className="App-header text-center">
           <h1 className="App-title">Simple Survey</h1>
         </div>
         <div className="text-center">{user}</div>
+        <div className="container">{questions}</div>
       </div>
     );
   }
